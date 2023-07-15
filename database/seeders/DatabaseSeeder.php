@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Добавим 4 новых записи в группы
+        \App\Models\Group::factory(4)->create();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
