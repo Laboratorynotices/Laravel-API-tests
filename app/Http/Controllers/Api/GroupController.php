@@ -43,9 +43,16 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreGroupRequest $request, string $id)
     {
-        //
+        // Находим группу, которую надо обновить.
+        $updatedGroup = Group::findOrFail($id);
+
+        // Сохраняем данные, если они пройдут валидацию
+        $updatedGroup->update($request->validated());
+
+        // Возвращаем сохранённую группу, чтобы она появилась в интерфейсе
+        return new GroupResource($updatedGroup);
     }
 
     /**
