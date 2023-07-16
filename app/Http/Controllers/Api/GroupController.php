@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Http\Resources\GroupResource;
 
 class GroupController extends Controller
 {
@@ -14,7 +15,7 @@ class GroupController extends Controller
     public function index()
     {
         //
-        return array('data' => Group::all());
+        return GroupResource::collection(Group::all());
     }
 
     /**
@@ -31,7 +32,7 @@ class GroupController extends Controller
     public function show(string $id)
     {
         //
-        return array('data' => Group::find($id));
+        return new GroupResource(Group::findOrFail($id));
     }
 
     /**
