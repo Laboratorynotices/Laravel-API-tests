@@ -23,7 +23,7 @@ class StoreGroupRequest extends FormRequest
     {
         return [
             // Поле name обязательно и максимум 255 символов
-            'name' => 'required|max:255',
+            'name' => ['required', 'max:255'],
         ];
     }
 }
