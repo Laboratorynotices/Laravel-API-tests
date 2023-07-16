@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Http\Resources\GroupResource;
+use App\Http\Requests\StoreGroupRequest;
 
 class GroupController extends Controller
 {
@@ -21,9 +22,13 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreGroupRequest $request)
     {
-        //
+        // Сохраняем данные, если они пройдут валидацию
+        $createdGroup = Group::create($request->validated());
+
+        // Возвращаем сохранённую группу, чтобы она появилась в интерфейсе
+        return new GroupResource($createdGroup);
     }
 
     /**

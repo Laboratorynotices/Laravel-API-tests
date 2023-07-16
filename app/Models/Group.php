@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
+
+    // Поле name можно заполнять группой
+    protected $fillable = ['name'];
 }
