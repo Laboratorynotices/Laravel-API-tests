@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Group;
 use App\Http\Resources\GroupResource;
 use App\Http\Requests\StoreGroupRequest;
@@ -60,6 +61,13 @@ class GroupController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Находим группу, которую надо удалить.
+        $deletedGroup = Group::findOrFail($id);
+
+        // Удаляем данные
+        $deletedGroup->delete();
+
+        // Возвращаем статус 204
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
