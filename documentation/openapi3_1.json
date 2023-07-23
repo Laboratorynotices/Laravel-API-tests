@@ -1,0 +1,256 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Обучение Laravel API",
+    "description": "Разбираюсь с инструментами [Laravel](https://laravel.com/) для работы с API.\n\n[Страница на GitHub](https://github.com/Laboratorynotices/Laravel-API-tests).",
+    "version": "1.0.1"
+  },
+  "externalDocs": {
+      "description": "Блог создания кода",
+      "url": "https://laboratorynotices.wordpress.com/2023/07/14/laravel-10-%d1%80%d0%b0%d0%b1%d0%be%d1%82%d0%b0-%d1%81-api/"
+  },
+  "servers": [
+    {
+      "description": "разработка",
+      "url": "http://localhost/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Group",
+      "description": "Некая группа"
+    }
+  ],
+  "paths": {
+    "/groups": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Отображает все группы",
+        "description": "Отображает все группы.",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/GroupsManyResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Добавляет новую группу",
+        "description": "Добавляет новую группу к уже существующим.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "examples": [
+                      "Truhula entara"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/GroupOneResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/groups/{groupId}": {
+      "get": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Отображает одну группу",
+        "description": "Находит группу по ID и отображает её.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID группы, которую надо вернуть",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/GroupOneResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Обновляет одну группу",
+        "description": "Находит группу по ID и изменяет её.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID группы, которую надо изменить",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "examples": [
+                      "Truhula entara"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/GroupOneResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Group"
+        ],
+        "summary": "Удаляет одну группу",
+        "description": "Находит группу по ID и удаляет её.",
+        "parameters": [
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "ID группы, которую надо удалить",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "404": {
+            "description": "Group not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "examples": [
+              1, 2, 3, 4
+            ]
+          },
+          "name": {
+            "type": "string",
+            "examples": [
+              "Cum excepturi"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "examples": [
+              "2023-07-15T15:25:55.000000Z"
+            ]
+          }
+        }
+      },
+      "GroupOneResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "$ref": "#/components/schemas/Group"
+          }
+        }
+      },
+      "GroupsManyResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            }
+          }
+        }
+      }
+    }
+  }
+}
